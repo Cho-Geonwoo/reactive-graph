@@ -1,0 +1,22 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    name: Deploy react-app
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Install Dependencies
+        run: npm install
+      - name: Build
+        run: CI= npm run build
+      - name: Firebase Install
+        run: sudo npm install -g firebase-tools
+      - name: Firebase Deploy
+        run: firebase deploy --token ${{secrets.FIREBASE_TOKEN}}
