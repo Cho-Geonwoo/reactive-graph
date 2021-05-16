@@ -43,7 +43,6 @@ const Canvas = () => {
   });
   useEffect(() => {
     const context = canvasRef.current.getContext('2d');
-    console.log(result);
     context.beginPath();
     context.moveTo(0, 600 - result[0]);
     context.lineTo(600, 600 - result[1]);
