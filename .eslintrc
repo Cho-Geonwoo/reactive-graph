@@ -29,6 +29,9 @@
         "peerDependencies": false,
         "packageDir": "./"
       }
-    ]
+    ],
+    "consistent-return": "off",
+    "react/destructuring-assignment": "off",
+    "no-return-assign": "off"
   }
 }

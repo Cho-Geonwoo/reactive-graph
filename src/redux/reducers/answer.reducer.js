@@ -1,7 +1,7 @@
 import { answerConstants as types } from '../constants';
 
 const initialState = {
-  data: null,
+  data: [],
 };
 
 export function answer(state = initialState, action) {

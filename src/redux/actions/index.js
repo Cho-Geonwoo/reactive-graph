@@ -1,1 +1,3 @@
-export * from './answer.actions';
+import { answerActions } from './answer.actions';
+
+export default answerActions;
