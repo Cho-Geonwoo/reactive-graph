@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
+import * as tfvis from '@tensorflow/tfjs-vis';
 import styled from 'styled-components';
 
 import useLinearRegression from '../hooks/useLinearRegression';
@@ -7,10 +8,12 @@ const CanvasWrapper = styled.canvas`
   border: 2px solid;
 `;
 
-const Canvas = () => {
+const Canvas = ({ showTrain = false }) => {
   const canvasRef = useRef(null);
   const [dots, setDots] = useState([]);
-  const result = useLinearRegression(dots);
+  const [result, history] = useLinearRegression(dots);
+  console.log(history);
+  const surface = { name: 'Training Performance', tab: 'history' };
   const addDot = useCallback((event) => {
     const context = canvasRef.current.getContext('2d');
     const rect = canvasRef.current.getBoundingClientRect();
@@ -48,6 +51,15 @@ const Canvas = () => {
     context.lineTo(600, 600 - result[1]);
     context.stroke();
   }, [result]);
+  useEffect(() => {
+    console.log(showTrain);
+    if (showTrain && history) {
+      tfvis.show.history(surface, history, ['loss', 'mse']);
+    }
+    if (showTrain && !history) {
+      alert('진행된 학습이 없습니다.');
+    }
+  }, [showTrain]);
   return <CanvasWrapper ref={canvasRef} width="600" height="600" />;
 };
 

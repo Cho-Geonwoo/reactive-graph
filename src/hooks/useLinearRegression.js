@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 const useLinearRegression = (dots) => {
   const [result, setResult] = useState([]);
+  const [history, setHistory] = useState();
   const [trainX, trainY] = dots.reduce(
     (accumulator, currentDot) => {
       accumulator[0].push(currentDot[0]);
@@ -16,13 +17,22 @@ const useLinearRegression = (dots) => {
       const model = tf.sequential();
       model.add(tf.layers.dense({ units: 1, inputShape: [1] }));
       // model compile
-      model.compile({ loss: 'meanSquaredError', optimizer: 'SGD' });
+      model.compile({
+        loss: 'meanSquaredError',
+        optimizer: 'SGD',
+        metrics: ['mse'],
+      });
       // training data
       const xs = tf.tensor(trainX, [trainX.length]);
       const ys = tf.tensor(trainY, [trainY.length]);
+      const curHistory = [];
       const fitParam = {
         epochs: 300,
-        shuffle: true,
+        callbacks: {
+          onEpochEnd: (epoch, log) => {
+            curHistory.push(log);
+          },
+        },
       };
       // Model training
       model.fit(xs, ys, fitParam).then(() => {
@@ -31,11 +41,12 @@ const useLinearRegression = (dots) => {
           model.predict(tf.tensor([0])).dataSync() * 600,
           model.predict(tf.tensor([1])).dataSync() * 600,
         ]);
+        setHistory(curHistory);
       });
     }
   }, [dots]);
 
-  return result;
+  return [result, history];
 };
 
 export default useLinearRegression;
