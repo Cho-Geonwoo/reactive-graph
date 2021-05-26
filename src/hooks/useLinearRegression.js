@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 const useLinearRegression = (dots) => {
   const [result, setResult] = useState([]);
-  const [history, setHistory] = useState();
+  const [history, setHistory] = useState([]);
   const [trainX, trainY] = dots.reduce(
     (accumulator, currentDot) => {
       accumulator[0].push(currentDot[0]);
@@ -27,7 +27,7 @@ const useLinearRegression = (dots) => {
       const ys = tf.tensor(trainY, [trainY.length]);
       const curHistory = [];
       const fitParam = {
-        epochs: 300,
+        epochs: 200,
         callbacks: {
           onEpochEnd: (epoch, log) => {
             curHistory.push(log);

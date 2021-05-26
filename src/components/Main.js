@@ -52,6 +52,36 @@ const SampleDataButton = styled.button`
   }
 `;
 
+const SampleDataButtonTwo = styled.button`
+  /* 공통 스타일 */
+  display: flex;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-family: NanumSquareRound;
+  font-weight: 900;
+  cursor: pointer;
+  margin-top: 20px;
+
+  /* 텍스트 위치 */
+  align-items: center;
+  justify-content: center;
+
+  /* 크기 */
+  height: 40px;
+  width: 100px;
+
+  /* 색상 */
+  background: #228be6;
+  &:hover {
+    background: #339af0;
+  }
+  &:active {
+    background: #1c7ed6;
+  }
+`;
+
 const TrainButton = styled.button`
   /* 공통 스타일 */
   display: flex;
@@ -84,17 +114,38 @@ const TrainButton = styled.button`
 
 const Main = () => {
   const [showTrain, setShowTrain] = useState(false);
+  const [showSampleDataOne, setShowSampleDataOne] = useState(false);
+  const [showSampleDataTwo, setShowSampleDataTwo] = useState(false);
+  const [clear, setClear] = useState(false);
   return (
     <ContentWrapper>
       <TitleWrapper>선형 회귀 실습</TitleWrapper>
-      <Canvas showTrain={showTrain} />
+      <Canvas
+        showTrain={showTrain}
+        showSampleDataOne={showSampleDataOne}
+        showSampleDataTwo={showSampleDataTwo}
+        clear={clear}
+        setClear={setClear}
+        setShowSampleDataOne={setShowSampleDataOne}
+        setShowSampleDataTwo={setShowSampleDataTwo}
+        setShowTrain={setShowTrain}
+      />
       <SampleDataWrapper>
-        <SampleDataButton>샘플 데이터 1</SampleDataButton>
-        <SampleDataButton>샘플 데이터 2</SampleDataButton>
+        <SampleDataButton onClick={() => setShowSampleDataOne(true)}>
+          샘플 데이터 1
+        </SampleDataButton>
+        <SampleDataButton onClick={() => setShowSampleDataTwo(true)}>
+          샘플 데이터 2
+        </SampleDataButton>
       </SampleDataWrapper>
-      <TrainButton onClick={() => setShowTrain(!showTrain)}>
-        훈련 과정 자세히 살펴보기
-      </TrainButton>
+      <SampleDataWrapper>
+        {/* <TrainButton onClick={() => setShowTrain(true)}>
+          훈련 과정 자세히 살펴보기
+        </TrainButton> */}
+        <SampleDataButtonTwo onClick={() => setClear(true)}>
+          초기화
+        </SampleDataButtonTwo>
+      </SampleDataWrapper>
     </ContentWrapper>
   );
 };
