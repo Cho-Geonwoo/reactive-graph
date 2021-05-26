@@ -28,6 +28,7 @@ const useLinearRegression = (dots) => {
       const curHistory = [];
       const fitParam = {
         epochs: 200,
+        shuffle: true,
         callbacks: {
           onEpochEnd: (epoch, log) => {
             curHistory.push(log);
