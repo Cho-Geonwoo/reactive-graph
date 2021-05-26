@@ -1,18 +1,44 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Canvas from './Canvas';
 
+const buttonStyle = css`
+  display: flex;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-family: NanumSquareRound;
+  font-weight: 900;
+  cursor: pointer;
+  margin-top: 20px;
+
+  /* 텍스트 위치 */
+  align-items: center;
+  justify-content: center;
+`;
+
 const ContentWrapper = styled.div`
+  width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  z-index: 0;
 `;
 
 const TitleWrapper = styled.h1`
   font-family: NanumSquareRound;
   font-weight: 900;
   font-size: 40px;
+  color: white;
+  margin-top: 50px;
+  margin-bottom: 50px;
+`;
+
+const Blank = styled.div`
+  height: 200px;
 `;
 
 const SampleDataWrapper = styled.div`
@@ -24,19 +50,8 @@ const SampleDataWrapper = styled.div`
 `;
 
 const SampleDataButton = styled.button`
-  /* 공통 스타일 */
-  display: flex;
-  outline: none;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  font-family: NanumSquareRound;
-  font-weight: 900;
-  cursor: pointer;
-
-  /* 텍스트 위치 */
-  align-items: center;
-  justify-content: center;
+  /* Common Style */
+  ${buttonStyle}
 
   /* 크기 */
   height: 40px;
@@ -53,20 +68,8 @@ const SampleDataButton = styled.button`
 `;
 
 const SampleDataButtonTwo = styled.button`
-  /* 공통 스타일 */
-  display: flex;
-  outline: none;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  font-family: NanumSquareRound;
-  font-weight: 900;
-  cursor: pointer;
-  margin-top: 20px;
-
-  /* 텍스트 위치 */
-  align-items: center;
-  justify-content: center;
+  /* Common Style */
+  ${buttonStyle}
 
   /* 크기 */
   height: 40px;
@@ -83,21 +86,8 @@ const SampleDataButtonTwo = styled.button`
 `;
 
 const TrainButton = styled.button`
-  /* 공통 스타일 */
-  display: flex;
-  outline: none;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  font-family: NanumSquareRound;
-  font-weight: 900;
-  cursor: pointer;
-  margin-top: 20px;
-
-  /* 텍스트 위치 */
-  align-items: center;
-  justify-content: center;
-
+  /* Common Style */
+  ${buttonStyle}
   /* 크기 */
   height: 40px;
   width: 200px;
@@ -146,6 +136,7 @@ const Main = () => {
           초기화
         </SampleDataButtonTwo>
       </SampleDataWrapper>
+      <Blank />
     </ContentWrapper>
   );
 };

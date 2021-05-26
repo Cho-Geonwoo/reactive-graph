@@ -6,6 +6,8 @@ import useLinearRegression from '../hooks/useLinearRegression';
 
 const CanvasWrapper = styled.canvas`
   border: 2px solid;
+  z-index: 1;
+  background-color: ${(props) => props.theme.canvasColor};
 `;
 
 const dataSampleOne = [
@@ -40,6 +42,7 @@ const Canvas = ({
 }) => {
   const canvasRef = useRef(null);
   const [dots, setDots] = useState([]);
+  const [trainSet, setTrainset] = useState([]);
   const [result, history] = useLinearRegression(dots);
   const [prevLine, setPrevLine] = useState([300, 300]);
   const [line, setLine] = useState([300, 300]);
@@ -52,6 +55,7 @@ const Canvas = ({
     setDots([]);
   }, []);
 
+  // click event가 발생했을 때 해당 위치에 점을 그리는 함수입니다.
   const addDot = useCallback((event) => {
     const context = canvasRef.current.getContext('2d');
     const rect = canvasRef.current.getBoundingClientRect();
@@ -76,6 +80,7 @@ const Canvas = ({
     context.stroke();
   }, []);
 
+  // x, y 좌표를 받아 점을 찍는 함수입니다.
   const plotDot = useCallback((dotCoordinate) => {
     const context = canvasRef.current.getContext('2d');
     context.beginPath();
@@ -92,6 +97,7 @@ const Canvas = ({
     context.stroke();
   }, []);
 
+  // 샘플 데이터1 버튼을 클릭했을 때, dataSampleOne 배열에 있는 점들을 캔버스에 추가하는 액션입니다.
   useEffect(() => {
     if (showSampleDataOne) {
       clearCanvas();
@@ -106,6 +112,7 @@ const Canvas = ({
     }
   }, [showSampleDataOne]);
 
+  // 샘플 데이터2 버튼을 클릭했을 때, dataSampleTwo 배열에 있는 점들을 캔버스에 추가하는 액션입니다.
   useEffect(() => {
     if (showSampleDataTwo) {
       clearCanvas();
@@ -120,6 +127,7 @@ const Canvas = ({
     }
   }, [showSampleDataTwo]);
 
+  // 초기화 버튼을 클릭했을 때,
   useEffect(() => {
     if (clear) {
       clearCanvas();
