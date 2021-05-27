@@ -1,6 +1,9 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
 import * as tfvis from '@tensorflow/tfjs-vis';
+import * as tf from '@tensorflow/tfjs';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { answerActions } from '../redux/actions';
 
 import useLinearRegression from '../hooks/useLinearRegression';
 
@@ -10,25 +13,47 @@ const CanvasWrapper = styled.canvas`
   background-color: ${(props) => props.theme.canvasColor};
 `;
 
+// normalized datas
 const dataSampleOne = [
   [0, 0],
+  [1 / 12, 1 / 12],
   [1 / 6, 1 / 6],
+  [1 / 4, 1 / 4],
   [1 / 3, 1 / 3],
+  [5 / 12, 5 / 12],
   [1 / 2, 1 / 2],
+  [7 / 12, 7 / 12],
   [2 / 3, 2 / 3],
+  [3 / 4, 3 / 4],
   [5 / 6, 5 / 6],
+  [11 / 12, 11 / 12],
   [1, 1],
 ];
 
+// normalized datas
 const dataSampleTwo = [
   [0, 1],
+  [1 / 12, 11 / 12],
   [1 / 6, 5 / 6],
+  [1 / 4, 3 / 4],
   [1 / 3, 2 / 3],
+  [5 / 12, 7 / 12],
   [1 / 2, 1 / 2],
+  [7 / 12, 5 / 12],
   [2 / 3, 1 / 3],
+  [3 / 4, 1 / 4],
   [5 / 6, 1 / 6],
+  [11 / 12, 1 / 12],
   [1, 0],
 ];
+
+let model = tf.sequential();
+model.add(tf.layers.dense({ units: 1, inputShape: [1] }));
+model.compile({
+  loss: 'meanSquaredError',
+  optimizer: 'SGD',
+  metrics: ['mse'],
+});
 
 const Canvas = ({
   showTrain = false,
@@ -40,14 +65,26 @@ const Canvas = ({
   setShowSampleDataOne,
   setShowSampleDataTwo,
 }) => {
+  const dispatch = useDispatch();
   const canvasRef = useRef(null);
   const [dots, setDots] = useState([]);
-  const [trainSet, setTrainset] = useState([]);
-  const [result, history] = useLinearRegression(dots);
+  const [sampleAdd, setSampleAdd] = useState(false);
+  const [result, history] = useLinearRegression(dots, model, sampleAdd);
   const [prevLine, setPrevLine] = useState([300, 300]);
   const [line, setLine] = useState([300, 300]);
   const surface = { name: 'Training Performance', tab: 'history' };
+  const reInitializeModel = useCallback(() => {
+    model = tf.sequential();
+    model.add(tf.layers.dense({ units: 1, inputShape: [1] }));
+    model.compile({
+      loss: 'meanSquaredError',
+      optimizer: 'SGD',
+      metrics: ['mse'],
+    });
+  }, []);
+
   const clearCanvas = useCallback(() => {
+    reInitializeModel();
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -78,6 +115,7 @@ const Canvas = ({
     context.fillStyle = 'black';
     context.fill();
     context.stroke();
+    dispatch(answerActions.setTrainState(true));
   }, []);
 
   // x, y 좌표를 받아 점을 찍는 함수입니다.
@@ -100,6 +138,7 @@ const Canvas = ({
   // 샘플 데이터1 버튼을 클릭했을 때, dataSampleOne 배열에 있는 점들을 캔버스에 추가하는 액션입니다.
   useEffect(() => {
     if (showSampleDataOne) {
+      setSampleAdd(true);
       clearCanvas();
       const dotSample = [];
       dataSampleOne.map((dot) => {
@@ -107,6 +146,7 @@ const Canvas = ({
         dotSample.push(dot);
         return dot;
       });
+      dispatch(answerActions.setTrainState(true));
       setDots(dotSample);
       setShowSampleDataOne(false);
     }
@@ -115,6 +155,7 @@ const Canvas = ({
   // 샘플 데이터2 버튼을 클릭했을 때, dataSampleTwo 배열에 있는 점들을 캔버스에 추가하는 액션입니다.
   useEffect(() => {
     if (showSampleDataTwo) {
+      setSampleAdd(true);
       clearCanvas();
       const dotSample = [];
       dataSampleTwo.map((dot) => {
@@ -122,6 +163,7 @@ const Canvas = ({
         dotSample.push(dot);
         return dot;
       });
+      dispatch(answerActions.setTrainState(true));
       setDots(dotSample);
       setShowSampleDataTwo(false);
     }
@@ -162,6 +204,8 @@ const Canvas = ({
 
   useEffect(() => {
     if (result.length !== 0) {
+      setSampleAdd(false);
+      dispatch(answerActions.setTrainState(false));
       let positionId;
       const draw = () => {
         setLine((prevState) => {
@@ -181,16 +225,6 @@ const Canvas = ({
     }
   }, [result]);
 
-  useEffect(() => {
-    if (showTrain && history.length !== 0) {
-      tfvis.show.history(surface, history, ['loss']);
-      setShowTrain(false);
-    }
-    if (showTrain && history.length === 0) {
-      alert('진행된 학습이 없습니다.');
-      setShowTrain(false);
-    }
-  }, [showTrain]);
   return <CanvasWrapper ref={canvasRef} width="600" height="600" />;
 };
 

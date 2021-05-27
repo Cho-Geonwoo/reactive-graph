@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 import theme from './theme';
-import Main from './components/Main';
+import { Main, TrainingModal } from './components';
 
 const Globalstyle = createGlobalStyle`
   ${reset};
@@ -16,6 +16,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Globalstyle />
       <Main />
+      <TrainingModal />
     </ThemeProvider>
   );
 }

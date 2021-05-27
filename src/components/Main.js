@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
+import {
+  ScatterChart,
+  Scatter,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
 import Canvas from './Canvas';
 
 const buttonStyle = css`
@@ -26,6 +35,11 @@ const ContentWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   z-index: 0;
+`;
+
+const ScatterChartWrapper = styled.div`
+  z-index = 1
+  background-color: white;
 `;
 
 const TitleWrapper = styled.h1`
@@ -103,22 +117,20 @@ const TrainButton = styled.button`
 `;
 
 const Main = () => {
-  const [showTrain, setShowTrain] = useState(false);
   const [showSampleDataOne, setShowSampleDataOne] = useState(false);
   const [showSampleDataTwo, setShowSampleDataTwo] = useState(false);
   const [clear, setClear] = useState(false);
+  // rechart 이용한 좌표평면 ui 삽입 필요
   return (
     <ContentWrapper>
       <TitleWrapper>선형 회귀 실습</TitleWrapper>
       <Canvas
-        showTrain={showTrain}
         showSampleDataOne={showSampleDataOne}
         showSampleDataTwo={showSampleDataTwo}
         clear={clear}
         setClear={setClear}
         setShowSampleDataOne={setShowSampleDataOne}
         setShowSampleDataTwo={setShowSampleDataTwo}
-        setShowTrain={setShowTrain}
       />
       <SampleDataWrapper>
         <SampleDataButton onClick={() => setShowSampleDataOne(true)}>
@@ -129,9 +141,6 @@ const Main = () => {
         </SampleDataButton>
       </SampleDataWrapper>
       <SampleDataWrapper>
-        {/* <TrainButton onClick={() => setShowTrain(true)}>
-          훈련 과정 자세히 살펴보기
-        </TrainButton> */}
         <SampleDataButtonTwo onClick={() => setClear(true)}>
           초기화
         </SampleDataButtonTwo>
@@ -141,4 +150,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default React.memo(Main);

@@ -2,6 +2,7 @@ import { answerConstants as types } from '../constants';
 
 const initialState = {
   data: [],
+  onTrain: false,
 };
 
 export function answer(state = initialState, action) {
@@ -10,6 +11,11 @@ export function answer(state = initialState, action) {
       return {
         ...state,
         data: action.data,
+      };
+    case types.SET_TRAIN:
+      return {
+        ...state,
+        onTrain: action.data,
       };
     default:
       return state;

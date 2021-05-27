@@ -18,7 +18,7 @@
     "react/jsx-props-no-spreading": "off",
     "react/self-closing-comp": 1,
     "no-unused-vars": 1,
-    "import/prefer-default-export": 1,
+    "import/prefer-default-export": "off",
     "no-console": 0,
     "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
     "import/no-extraneous-dependencies": [
