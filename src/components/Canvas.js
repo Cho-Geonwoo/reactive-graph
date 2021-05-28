@@ -1,51 +1,16 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
 import * as tfvis from '@tensorflow/tfjs-vis';
 import * as tf from '@tensorflow/tfjs';
-import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { answerActions } from '../redux/actions';
+import {
+  canvasSize,
+  dataSampleOne,
+  dataSampleTwo,
+} from '../constants/contants';
+import { CanvasWrapper } from '../styles/styles';
 
 import useLinearRegression from '../hooks/useLinearRegression';
-
-const CanvasWrapper = styled.canvas`
-  border: 2px solid;
-  z-index: 1;
-  background-color: ${(props) => props.theme.canvasColor};
-`;
-
-// normalized datas
-const dataSampleOne = [
-  [0, 0],
-  [1 / 12, 1 / 12],
-  [1 / 6, 1 / 6],
-  [1 / 4, 1 / 4],
-  [1 / 3, 1 / 3],
-  [5 / 12, 5 / 12],
-  [1 / 2, 1 / 2],
-  [7 / 12, 7 / 12],
-  [2 / 3, 2 / 3],
-  [3 / 4, 3 / 4],
-  [5 / 6, 5 / 6],
-  [11 / 12, 11 / 12],
-  [1, 1],
-];
-
-// normalized datas
-const dataSampleTwo = [
-  [0, 1],
-  [1 / 12, 11 / 12],
-  [1 / 6, 5 / 6],
-  [1 / 4, 3 / 4],
-  [1 / 3, 2 / 3],
-  [5 / 12, 7 / 12],
-  [1 / 2, 1 / 2],
-  [7 / 12, 5 / 12],
-  [2 / 3, 1 / 3],
-  [3 / 4, 1 / 4],
-  [5 / 6, 1 / 6],
-  [11 / 12, 1 / 12],
-  [1, 0],
-];
 
 let model = tf.sequential();
 model.add(tf.layers.dense({ units: 1, inputShape: [1] }));
@@ -56,12 +21,10 @@ model.compile({
 });
 
 const Canvas = ({
-  showTrain = false,
   showSampleDataOne = false,
   showSampleDataTwo = false,
   clear = false,
   setClear,
-  setShowTrain,
   setShowSampleDataOne,
   setShowSampleDataTwo,
 }) => {
@@ -126,8 +89,8 @@ const Canvas = ({
     const context = canvasRef.current.getContext('2d');
     context.beginPath();
     context.arc(
-      dotCoordinate[0] * 600,
-      600 - dotCoordinate[1] * 600,
+      dotCoordinate[0] * canvasSize.width,
+      canvasSize.height - dotCoordinate[1] * canvasSize.height,
       5,
       0,
       2 * Math.PI,
@@ -172,7 +135,7 @@ const Canvas = ({
     }
   }, [showSampleDataTwo]);
 
-  // 초기화 버튼을 클릭했을 때,
+  // 초기화 버튼을 클릭했을 때, 기존의 모든 점들을 지우고 선의 위치를 중앙으로 초기화하는 함수입니다.
   useEffect(() => {
     if (clear) {
       clearCanvas();
@@ -195,8 +158,8 @@ const Canvas = ({
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.save();
     context.beginPath();
-    context.moveTo(0, 600 - line[0]);
-    context.lineTo(600, 600 - line[1]);
+    context.moveTo(0, canvasSize.height - line[0]);
+    context.lineTo(canvasSize.width, canvasSize.height - line[1]);
     context.stroke();
     context.restore();
     dots.map((dot) => {
@@ -240,7 +203,13 @@ const Canvas = ({
     }
   }, [result]);
 
-  return <CanvasWrapper ref={canvasRef} width="600" height="600" />;
+  return (
+    <CanvasWrapper
+      ref={canvasRef}
+      width={canvasSize.width}
+      height={canvasSize.height}
+    />
+  );
 };
 
 export default Canvas;

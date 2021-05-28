@@ -1,5 +1,6 @@
 import * as tf from '@tensorflow/tfjs';
 import { useEffect, useState } from 'react';
+import { canvasSize } from '../constants/contants';
 
 const useLinearRegression = (dots, model, sampleAdd) => {
   const [result, setResult] = useState([]);
@@ -31,8 +32,8 @@ const useLinearRegression = (dots, model, sampleAdd) => {
       model.fit(xs, ys, fitParam).then(() => {
         // Test data Inference
         setResult([
-          model.predict(tf.tensor([0])).dataSync() * 600,
-          model.predict(tf.tensor([1])).dataSync() * 600,
+          model.predict(tf.tensor([0])).dataSync() * canvasSize.height,
+          model.predict(tf.tensor([1])).dataSync() * canvasSize.height,
         ]);
         setHistory(curHistory);
       });
