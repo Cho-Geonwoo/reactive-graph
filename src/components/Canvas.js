@@ -72,6 +72,7 @@ const Canvas = ({
   const [result, history] = useLinearRegression(dots, model, sampleAdd);
   const [prevLine, setPrevLine] = useState([300, 300]);
   const [line, setLine] = useState([300, 300]);
+  const [lineMoving, setLineMoving] = useState(false);
   const surface = { name: 'Training Performance', tab: 'history' };
   const reInitializeModel = useCallback(() => {
     model = tf.sequential();
@@ -94,28 +95,30 @@ const Canvas = ({
 
   // click event가 발생했을 때 해당 위치에 점을 그리는 함수입니다.
   const addDot = useCallback((event) => {
-    const context = canvasRef.current.getContext('2d');
-    const rect = canvasRef.current.getBoundingClientRect();
-    const coordinates = [
-      (event.clientX - rect.left) / rect.height,
-      (rect.height - event.clientY + rect.top) / rect.height,
-    ];
-    if (coordinates) {
-      setDots((prevArray) => [...prevArray, coordinates]);
+    if (!lineMoving) {
+      const context = canvasRef.current.getContext('2d');
+      const rect = canvasRef.current.getBoundingClientRect();
+      const coordinates = [
+        (event.clientX - rect.left) / rect.height,
+        (rect.height - event.clientY + rect.top) / rect.height,
+      ];
+      if (coordinates) {
+        setDots((prevArray) => [...prevArray, coordinates]);
+      }
+      context.beginPath();
+      context.arc(
+        event.clientX - rect.left,
+        event.clientY - rect.top,
+        5,
+        0,
+        2 * Math.PI,
+        false,
+      );
+      context.fillStyle = 'black';
+      context.fill();
+      context.stroke();
+      dispatch(answerActions.setTrainState(true));
     }
-    context.beginPath();
-    context.arc(
-      event.clientX - rect.left,
-      event.clientY - rect.top,
-      5,
-      0,
-      2 * Math.PI,
-      false,
-    );
-    context.fillStyle = 'black';
-    context.fill();
-    context.stroke();
-    dispatch(answerActions.setTrainState(true));
   }, []);
 
   // x, y 좌표를 받아 점을 찍는 함수입니다.
@@ -206,16 +209,28 @@ const Canvas = ({
     if (result.length !== 0) {
       setSampleAdd(false);
       dispatch(answerActions.setTrainState(false));
+      setLineMoving(true);
       let positionId;
       const draw = () => {
         setLine((prevState) => {
-          if (prevState[0] !== result[0]) {
-            positionId = requestAnimationFrame(draw);
-            return [
-              (result[0] - prevLine[0]) / 60 + prevState[0],
-              (result[1] - prevLine[1]) / 60 + prevState[1],
-            ];
+          if (result[0] < prevLine[0]) {
+            if (prevState[0] > result[0]) {
+              positionId = requestAnimationFrame(draw);
+              return [
+                (result[0] - prevLine[0]) / 60 + prevState[0],
+                (result[1] - prevLine[1]) / 60 + prevState[1],
+              ];
+            }
+          } else if (result[0] > prevLine[0]) {
+            if (prevState[0] < result[0]) {
+              positionId = requestAnimationFrame(draw);
+              return [
+                (result[0] - prevLine[0]) / 60 + prevState[0],
+                (result[1] - prevLine[1]) / 60 + prevState[1],
+              ];
+            }
           }
+          setLineMoving(true);
           setPrevLine([prevState[0], prevState[1]]);
           return [prevState[0], prevState[1]];
         });
