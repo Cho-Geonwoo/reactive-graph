@@ -49,11 +49,15 @@ const Canvas = ({
 
   const clearCanvas = useCallback(() => {
     reInitializeModel();
+    setLineMoving(false);
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.beginPath();
     setDots([]);
+    setLine([300, 300]);
+    setPrevLine([300, 300]);
+    setSampleAdd(false);
   }, []);
 
   // click event가 발생했을 때 해당 위치에 점을 그리는 함수입니다.
@@ -104,8 +108,8 @@ const Canvas = ({
   // 샘플 데이터1 버튼을 클릭했을 때, dataSampleOne 배열에 있는 점들을 캔버스에 추가하는 액션입니다.
   useEffect(() => {
     if (showSampleDataOne) {
-      setSampleAdd(true);
       clearCanvas();
+      setSampleAdd(true);
       const dotSample = [];
       dataSampleOne.map((dot) => {
         plotDot(dot);
@@ -121,8 +125,8 @@ const Canvas = ({
   // 샘플 데이터2 버튼을 클릭했을 때, dataSampleTwo 배열에 있는 점들을 캔버스에 추가하는 액션입니다.
   useEffect(() => {
     if (showSampleDataTwo) {
-      setSampleAdd(true);
       clearCanvas();
+      setSampleAdd(true);
       const dotSample = [];
       dataSampleTwo.map((dot) => {
         plotDot(dot);
@@ -140,7 +144,6 @@ const Canvas = ({
     if (clear) {
       clearCanvas();
       setClear(false);
-      setLine([300, 300]);
     }
   }, [clear]);
 
