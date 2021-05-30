@@ -1,5 +1,5 @@
 const theme = {
-  canvasColor: 'white',
+  canvasColor: 'none',
 };
 
 export default theme;
