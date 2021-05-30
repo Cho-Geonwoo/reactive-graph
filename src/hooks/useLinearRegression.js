@@ -5,6 +5,8 @@ import { canvasSize } from '../constants/contants';
 const useLinearRegression = (dots, model, sampleAdd) => {
   const [result, setResult] = useState([]);
   const [history, setHistory] = useState([]);
+
+  // 점에 대한 정보를 입력 받아 훈련할 수 있는 상태로 가공하는 부분
   const [trainX, trainY] = dots.reduce(
     (accumulator, currentDot) => {
       accumulator[0].push(currentDot[0]);
@@ -13,6 +15,8 @@ const useLinearRegression = (dots, model, sampleAdd) => {
     },
     [[], []],
   );
+
+  // 모델 훈련을 위한 부분
   useEffect(() => {
     if (trainX.length !== 0) {
       // training data
