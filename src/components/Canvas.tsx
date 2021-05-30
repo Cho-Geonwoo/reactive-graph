@@ -20,6 +20,19 @@ model.compile({
   metrics: ['mse'],
 });
 
+type CanvasProps = {
+  showSampleDataOne: boolean;
+  showSampleDataTwo: boolean;
+  clear: boolean;
+  setClear: (value: boolean | ((prevVar: boolean) => boolean)) => void;
+  setShowSampleDataOne: (
+    value: boolean | ((prevVar: boolean) => boolean),
+  ) => void;
+  setShowSampleDataTwo: (
+    value: boolean | ((prevVar: boolean) => boolean),
+  ) => void;
+};
+
 const Canvas = ({
   showSampleDataOne = false,
   showSampleDataTwo = false,
@@ -27,10 +40,12 @@ const Canvas = ({
   setClear,
   setShowSampleDataOne,
   setShowSampleDataTwo,
-}) => {
+}: CanvasProps) => {
   const dispatch = useDispatch();
-  const canvasRef = useRef(null);
-  const [dots, setDots] = useState([]);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvas = canvasRef.current;
+  const context = canvasRef.current && canvasRef.current.getContext('2d');
+  const [dots, setDots] = useState<Array<Array<number>>>([]);
   const [sampleAdd, setSampleAdd] = useState(false);
   const [result, history] = useLinearRegression(dots, model, sampleAdd);
   const [prevLine, setPrevLine] = useState([300, 300]);
@@ -50,8 +65,7 @@ const Canvas = ({
   const clearCanvas = useCallback(() => {
     reInitializeModel();
     setLineMoving(false);
-    const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
+    if (!context || !canvas) return;
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.beginPath();
     setDots([]);
@@ -63,8 +77,8 @@ const Canvas = ({
   // click event가 발생했을 때 해당 위치에 점을 그리는 함수입니다.
   const addDot = useCallback((event) => {
     if (!lineMoving) {
-      const context = canvasRef.current.getContext('2d');
-      const rect = canvasRef.current.getBoundingClientRect();
+      if (!context || !canvas) return;
+      const rect = canvas.getBoundingClientRect();
       const coordinates = [
         (event.clientX - rect.left) / rect.height,
         (rect.height - event.clientY + rect.top) / rect.height,
@@ -90,7 +104,7 @@ const Canvas = ({
 
   // x, y 좌표를 받아 점을 찍는 함수입니다.
   const plotDot = useCallback((dotCoordinate) => {
-    const context = canvasRef.current.getContext('2d');
+    if (!context || !canvas) return;
     context.beginPath();
     context.arc(
       dotCoordinate[0] * canvasSize.width,
@@ -110,7 +124,7 @@ const Canvas = ({
     if (showSampleDataOne) {
       clearCanvas();
       setSampleAdd(true);
-      const dotSample = [];
+      const dotSample: any[] = [];
       dataSampleOne.map((dot) => {
         plotDot(dot);
         dotSample.push(dot);
@@ -127,7 +141,7 @@ const Canvas = ({
     if (showSampleDataTwo) {
       clearCanvas();
       setSampleAdd(true);
-      const dotSample = [];
+      const dotSample: any[] = [];
       dataSampleTwo.map((dot) => {
         plotDot(dot);
         dotSample.push(dot);
@@ -148,16 +162,12 @@ const Canvas = ({
   }, [clear]);
 
   useEffect(() => {
-    if (!canvasRef.current) {
-      return;
-    }
-    const canvas = canvasRef.current;
+    if (!context || !canvas) return;
     canvas.addEventListener('click', addDot);
   });
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    const context = canvasRef.current.getContext('2d');
+    if (!context || !canvas) return;
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.save();
     context.beginPath();
@@ -176,7 +186,7 @@ const Canvas = ({
       setSampleAdd(false);
       dispatch(answerActions.setTrainState(false));
       setLineMoving(true);
-      let positionId;
+      let positionId: any;
       const draw = () => {
         setLine((prevState) => {
           if (result[0] < prevLine[0]) {
