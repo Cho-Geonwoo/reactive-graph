@@ -59,8 +59,6 @@ const initialState = {
 };
 
 export default class LossGraph extends PureComponent {
-  static demoUrl = 'https://codesandbox.io/s/highlight-zomm-line-chart-v77bt';
-
   constructor(props) {
     super(props);
     this.state = initialState;

@@ -106,7 +106,6 @@ const Main = () => {
       <ContentWrapper>
         <ContentOneWrapper>
           <TitleWrapper>선형 회귀 실습</TitleWrapper>
-          <CanvasGrid />
           <Canvas
             showSampleDataOne={showSampleDataOne}
             showSampleDataTwo={showSampleDataTwo}
@@ -119,6 +118,7 @@ const Main = () => {
             setAddedDot={setAddedDot}
             setLossHistory={setLossHistory}
           />
+          <CanvasGrid />
           <SampleDataWrapper>
             <SampleDataButton
               onClick={() => setShowSampleDataOne(true)}
