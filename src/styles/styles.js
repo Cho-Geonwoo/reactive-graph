@@ -32,6 +32,7 @@ const ContentWrapper = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: row;
+  overflow: scroll;
   z-index: 0;
 `;
 
@@ -73,12 +74,13 @@ const TotalWrapper = styled.div`
 
 const GraphWrapper = styled.div`
   width: 30%;
+  height: 100vh;
   display: flex;
   background-color: #ffffff;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  overflow: hidden;
+  overflow: scroll;
   text-overflow: ellipsis;
   white-space: nowrap;
 `;
