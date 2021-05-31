@@ -34,7 +34,7 @@ const Main = () => {
     y: null,
   });
   const [addedDot, setAddedDot] = useState([]);
-  const [lossHistory, setLossHistory] = useState(null);
+  const [lossHistory, setLossHistory] = useState([]);
 
   // x inputBox에 대한 reference
   const xInput = useRef();
@@ -172,7 +172,7 @@ const Main = () => {
       </ContentWrapper>
       <GraphWrapper>
         <GraphTitle>학습 정보</GraphTitle>
-        <LossGraph />
+        <LossGraph lossHistory={lossHistory} />
         <AlgorimaLogoWrapper
           href="https://algorima.io/"
           target="_blank"

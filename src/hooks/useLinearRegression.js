@@ -28,7 +28,7 @@ const useLinearRegression = (dots, model, sampleAdd) => {
         shuffle: true,
         callbacks: {
           onEpochEnd: (epoch, log) => {
-            curHistory.push(log);
+            curHistory.push(log.mse);
           },
         },
       };

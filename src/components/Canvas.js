@@ -231,7 +231,7 @@ const Canvas = ({
   }, [result]);
 
   useEffect(() => {
-    if (!history) {
+    if (history) {
       setLossHistory(history);
     }
   }, [history]);

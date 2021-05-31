@@ -290,7 +290,7 @@ const RobotImg = styled.img`
 `;
 
 const AlgorimaLogoWrapper = styled.a`
-  margin-top: 20%;
+  margin-top: 150px;
 `;
 
 const AlgorimaImg = styled.img`
@@ -328,7 +328,7 @@ const AxisNumberText = styled.h1`
 `;
 
 const GraphTitle = styled.h1`
-  margin: 30% 0 5% 0;
+  margin: 200px 0 5% 0;
   font-family: NotoSansCJKkr;
   font-weight: 600;
   font-style: normal;
