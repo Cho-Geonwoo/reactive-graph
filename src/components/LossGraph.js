@@ -23,7 +23,7 @@ const LossGraph = ({ lossHistory }) => {
         });
       } else {
         lossHistory.map((loss, index) => {
-          if (index % 10 === 0) {
+          if (index % 20 === 0) {
             return dataArray.push({ name: index, mse: loss });
           }
           return dataArray;
