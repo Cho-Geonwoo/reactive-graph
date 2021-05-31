@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Label,
   LineChart,
   Line,
   CartesianGrid,
@@ -9,6 +8,11 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
+import {
+  ChartWrapper,
+  HorizontalRechartText,
+  VerticalRechartText,
+} from '../styles/styles';
 
 const LossGraph = ({ lossHistory }) => {
   const [data, setData] = useState([]);
@@ -32,35 +36,27 @@ const LossGraph = ({ lossHistory }) => {
   }, [lossHistory]);
 
   return (
-    <div style={{ userSelect: 'none', width: '100%', margin: '0 0 0 10px' }}>
-      <ResponsiveContainer width="90%" height={400}>
-        <LineChart width="90%" height={400} data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis allowDataOverflow dataKey="name" type="number">
-            <Label value="Epoch" offset={0} position="insideBottom" />
-          </XAxis>
-          <YAxis
-            allowDataOverflow
-            type="number"
-            yAxisId="1"
-            label={{
-              value: 'MSE Loss',
-              angle: -90,
-              position: 'insideLeft',
-              offset: 10,
-            }}
-          />
-          <Tooltip />
-          <Line
-            yAxisId="1"
-            type="natural"
-            dataKey="mse"
-            stroke="#8884d8"
-            animationDuration={300}
-          />
-        </LineChart>
-      </ResponsiveContainer>
-    </div>
+    <>
+      <ChartWrapper>
+        <VerticalRechartText>MSE Loss</VerticalRechartText>
+        <ResponsiveContainer width="90%" height={400}>
+          <LineChart width="90%" height={400} data={data}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis allowDataOverflow dataKey="name" type="number" />
+            <YAxis allowDataOverflow type="number" yAxisId="1" />
+            <Tooltip />
+            <Line
+              yAxisId="1"
+              type="natural"
+              dataKey="mse"
+              stroke="#8884d8"
+              animationDuration={300}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </ChartWrapper>
+      <HorizontalRechartText>Epoch</HorizontalRechartText>
+    </>
   );
 };
 

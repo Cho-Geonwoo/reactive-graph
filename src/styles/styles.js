@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import { canvasSize } from '../constants/contants';
 
 const CanvasWrapper = styled.canvas`
+  position: relative;
   z-index: 1;
   background-color: ${(props) => props.theme.canvasColor};
   border-radius: 10px;
@@ -39,7 +40,7 @@ const ContentOneWrapper = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   z-index: 0;
 `;
@@ -307,7 +308,8 @@ const RobotImg = styled.img`
 `;
 
 const AlgorimaLogoWrapper = styled.a`
-  margin-top: 150px;
+  margin-top: auto;
+  margin-bottom: 70px;
 `;
 
 const AlgorimaImg = styled.img`
@@ -357,6 +359,30 @@ const GraphTitle = styled.h1`
   color: #222222;
 `;
 
+const ChartWrapper = styled.div`
+  font-family: Helvetica Neue;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+`;
+
+const VerticalRechartText = styled.h1`
+  transform: rotate(-90deg);
+  font-size: 16px;
+  color: black;
+  margin-right: -40px;
+`;
+
+const HorizontalRechartText = styled.h1`
+  margin-left: 10%;
+  width: 100%;
+  font-size: 16px;
+  text-align: center;
+  color: black;
+`;
+
 export {
   TotalWrapper,
   CanvasWrapper,
@@ -389,4 +415,7 @@ export {
   AxisNumberText,
   GraphTitle,
   AlgorimaLogoWrapper,
+  ChartWrapper,
+  VerticalRechartText,
+  HorizontalRechartText,
 };
