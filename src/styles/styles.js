@@ -337,6 +337,14 @@ const GraphTitle = styled.h1`
   color: #222222;
 `;
 
+const LossGraphBox = styled.div`
+  display: box;
+  width: 420px;
+  height: 390px;
+  border: 1px solid black;
+  margin-bottom: 150px;
+`;
+
 export {
   TotalWrapper,
   CanvasWrapper,
@@ -368,4 +376,5 @@ export {
   VerticalAxis,
   AxisNumberText,
   GraphTitle,
+  LossGraphBox,
 };

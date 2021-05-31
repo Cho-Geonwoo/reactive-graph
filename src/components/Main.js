@@ -31,6 +31,7 @@ import {
   InputButton,
   GraphTitle,
   EasyDeepImg,
+  LossGraphBox,
 } from '../styles/styles';
 
 const Main = () => {
@@ -180,7 +181,10 @@ const Main = () => {
       </ContentWrapper>
       <GraphWrapper>
         <GraphTitle>학습 정보</GraphTitle>
-        <EasyDeepImg src={`${process.env.PUBLIC_URL}/images/easydeep.png`} />
+        <LossGraphBox />
+        <a href="https://beta.easydeep.ai/" target="_blank" rel="noreferrer">
+          <EasyDeepImg src={`${process.env.PUBLIC_URL}/images/easydeep.png`} />
+        </a>
       </GraphWrapper>
     </TotalWrapper>
   );
