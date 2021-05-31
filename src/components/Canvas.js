@@ -159,7 +159,7 @@ const Canvas = ({
     if (clear) {
       clearCanvas();
       setClear(false);
-      setLossHistory(null);
+      setLossHistory([]);
     }
   }, [clear]);
 

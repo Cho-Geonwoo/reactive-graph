@@ -15,22 +15,20 @@ const LossGraph = ({ lossHistory }) => {
 
   // loss에 대한 정보가 갱신 되었을 때 해당 정보를 그래프에 반영할 수 있도록 가공하는 부분입니다.
   useEffect(() => {
-    if (lossHistory.length !== 0) {
-      const dataArray = [];
-      if (lossHistory.length <= 100) {
-        lossHistory.map((loss, index) => {
+    const dataArray = [];
+    if (lossHistory.length <= 100) {
+      lossHistory.map((loss, index) => {
+        return dataArray.push({ name: index, mse: loss });
+      });
+    } else {
+      lossHistory.map((loss, index) => {
+        if (index % 20 === 0) {
           return dataArray.push({ name: index, mse: loss });
-        });
-      } else {
-        lossHistory.map((loss, index) => {
-          if (index % 20 === 0) {
-            return dataArray.push({ name: index, mse: loss });
-          }
-          return dataArray;
-        });
-      }
-      setData(dataArray);
+        }
+        return dataArray;
+      });
     }
+    setData(dataArray);
   }, [lossHistory]);
 
   return (

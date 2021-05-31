@@ -1,44 +1,39 @@
 @font-face {
-  font-family: "SpoqaHanSansNeo";
+  font-family: SpoqaHanSansNeo;
   font-weight: 200;
-  font-display: auto;
-  src: url("./SpoqaHanSansNeo-Thin.otf") format("otf"),
-    url("./SpoqaHanSansNeo-Thin.woff") format("woff"),
-    url("./SpoqaHanSansNeo-Thin.ttf") format("truetype");
+  src: url('./SpoqaHanSansNeo-Thin.otf') format('otf'),
+    url('./SpoqaHanSansNeo-Thin.woff') format('woff'),
+    url('./SpoqaHanSansNeo-Thin.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: "SpoqaHanSansNeo";
+  font-family: SpoqaHanSansNeo;
   font-weight: 300;
-  font-display: auto;
-  src: url("./SpoqaHanSansNeo-Light.otf") format("otf"),
-    url("./SpoqaHanSansNeo-Light.woff") format("woff"),
-    url("./SpoqaHanSansNeo-Light.ttf") format("truetype");
+  src: url('./SpoqaHanSansNeo-Light.otf') format('otf'),
+    url('./SpoqaHanSansNeo-Light.woff') format('woff'),
+    url('./SpoqaHanSansNeo-Light.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: "SpoqaHanSansNeo";
+  font-family: SpoqaHanSansNeo;
   font-weight: 400;
-  font-display: auto;
-  src: url("./SpoqaHanSansNeo-Regular.otf") format("otf"),
-    url("./SpoqaHanSansNeo-Regular.woff") format("woff"),
-    url("./SpoqaHanSansNeo-Regular.ttf") format("truetype");
+  src: url('./SpoqaHanSansNeo-Regular.otf') format('otf'),
+    url('./SpoqaHanSansNeo-Regular.woff') format('woff'),
+    url('./SpoqaHanSansNeo-Regular.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: "SpoqaHanSansNeo";
+  font-family: SpoqaHanSansNeo;
   font-weight: 500;
-  font-display: auto;
-  src: url("./SpoqaHanSansNeo-Medium.otf") format("otf"),
-    url("./SpoqaHanSansNeo-Medium.woff") format("woff"),
-    url("./SpoqaHanSansNeo-Medium.ttf") format("truetype");
+  src: url('./SpoqaHanSansNeo-Medium.otf') format('otf'),
+    url('./SpoqaHanSansNeo-Medium.woff') format('woff'),
+    url('./SpoqaHanSansNeo-Medium.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: "SpoqaHanSansNeo";
+  font-family: SpoqaHanSansNeo;
   font-weight: 600;
-  font-display: auto;
-  src: url("./SpoqaHanSansNeo-Bold.otf") format("otf"),
-    url("./SpoqaHanSansNeo-Bold.woff") format("woff"),
-    url("./SpoqaHanSansNeo-Bold.ttf") format("truetype");
+  src: url('./SpoqaHanSansNeo-Bold.otf') format('otf'),
+    url('./SpoqaHanSansNeo-Bold.woff') format('woff'),
+    url('./SpoqaHanSansNeo-Bold.ttf') format('truetype');
 }

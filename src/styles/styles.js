@@ -56,7 +56,7 @@ const InputWrapper = styled.div`
   align-items: center;
   width: 130px;
   height: 200px;
-  margin-top: 482px;
+  margin-top: 494px;
   background: rgba(0, 11, 49, 0.7);
   border-radius: 20px;
 `;
@@ -88,9 +88,13 @@ const ScatterChartWrapper = styled.div`
 `;
 
 const TitleWrapper = styled.h1`
-  font-family: NotoSansCJKkR;
-  font-weight: 500;
-  font-size: 40px;
+  font-family: NotoSansCJKkr;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 35px;
+  line-height: 56px;
+  letter-spacing: -2px;
+  text-transform: capitalize;
   color: white;
   margin-top: 50px;
   margin-bottom: 50px;
@@ -116,6 +120,11 @@ const SampleDataButton = styled.button`
   /* 크기 */
   height: 50px;
   width: 150px;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 56px;
+  letter-spaceing: -1px;
+  text-transform: capitalize;
 
   /* 위치 */
   margin-left: ${(props) => props.left}px;
@@ -141,9 +150,13 @@ const SampleDataButton = styled.button`
 const InitializeButton = styled.button`
   /* Common Style */
   ${buttonStyle}
+
   /* 크기 */
   height: 40px;
   width: 130px;
+  font-size: 18px;
+  line-height: 20px;
+  letter-spacing: -1px;
 
   /* 색상 */
   background: linear-gradient(
@@ -166,6 +179,10 @@ const InputButton = styled.button`
   /* 크기 */
   height: 30px;
   width: 110px;
+  font-size: 16px;
+  line-height: 56px;
+  letter-spacing: -1px;
+  text-transform: capitalize;
 
   /* 색상 */
   background: linear-gradient(137.61deg, #e9eeff -88.58%, #949494 82.59%);
@@ -256,7 +273,7 @@ const GridBox = styled.div`
 
 const GridWrapper = styled.div`
   position: absolute;
-  top: 140px;
+  top: 152px;
   left: -2px;
   width: ${canvasSize.width}px;
   height: ${canvasSize.height}px;
