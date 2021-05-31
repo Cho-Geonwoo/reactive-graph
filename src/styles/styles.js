@@ -153,10 +153,10 @@ const InitializeButton = styled.button`
     #5db8a2 81.21%
   );
   &:hover {
-    background: #00ac00;
+    background: #5be191;
   }
   &:active {
-    background: #00ac00;
+    background: #5be191;
   }
 `;
 
