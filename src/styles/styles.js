@@ -289,10 +289,12 @@ const RobotImg = styled.img`
   margin-bottom: 15px;
 `;
 
+const AlgorimaLogoWrapper = styled.a`
+  margin-top: 20%;
+`;
+
 const AlgorimaImg = styled.img`
   width: 400px;
-  margin-top: 30%;
-  margin-bottom: 70px;
 `;
 
 const HorizontalAxis = styled.div`
@@ -369,4 +371,5 @@ export {
   VerticalAxis,
   AxisNumberText,
   GraphTitle,
+  AlgorimaLogoWrapper,
 };
