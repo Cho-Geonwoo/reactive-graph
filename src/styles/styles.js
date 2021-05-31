@@ -383,6 +383,7 @@ const VerticalRechartText = styled.h1`
 
 const HorizontalRechartText = styled.h1`
   font-family: Helvetica Neue;
+  margin-top: 5px;
   margin-left: 10%;
   width: 100%;
   font-size: 16px;

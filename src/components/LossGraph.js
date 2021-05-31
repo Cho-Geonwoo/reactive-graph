@@ -6,6 +6,7 @@ import {
   XAxis,
   YAxis,
   Tooltip,
+  Brush,
   ResponsiveContainer,
 } from 'recharts';
 import {
@@ -21,9 +22,14 @@ const LossGraph = ({ lossHistory }) => {
   useEffect(() => {
     const dataArray = [];
     if (lossHistory.length <= 100) {
-      lossHistory.map((loss, index) => {
-        return dataArray.push({ name: index, mse: loss });
-      });
+      if (lossHistory.length === 0) {
+        setData([]);
+      } else {
+        lossHistory.map((loss, index) => {
+          return dataArray.push({ name: data.length + index, mse: loss });
+        });
+        setData((prevArray) => prevArray.concat(dataArray));
+      }
     } else {
       lossHistory.map((loss, index) => {
         if (index % 20 === 0) {
@@ -31,8 +37,8 @@ const LossGraph = ({ lossHistory }) => {
         }
         return dataArray;
       });
+      setData(dataArray);
     }
-    setData(dataArray);
   }, [lossHistory]);
 
   return (
@@ -52,6 +58,7 @@ const LossGraph = ({ lossHistory }) => {
               stroke="#8884d8"
               animationDuration={300}
             />
+            <Brush />
           </LineChart>
         </ResponsiveContainer>
       </ChartWrapper>
