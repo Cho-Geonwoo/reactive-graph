@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useAlert } from 'react-alert';
 // import {
 //   ScatterChart,
 //   Scatter,
@@ -48,6 +49,7 @@ const Main = () => {
 
   // y inputBox에 대한 reference
   const yInput = useRef();
+  const alert = useAlert();
 
   // 화면 처음 렌더링 됐을 때 focus가 x input 부분에 맞춰지도록 설정
   useEffect(() => {
@@ -80,7 +82,7 @@ const Main = () => {
   // 입력 버튼을 눌렀을 때, x input과 y input안에 제대로 된 숫자 값이 있으면 addedDot 변수의 값을 해당 좌표의 값으로 설정하는 부분이다.
   const addDotByInput = () => {
     if (!Number.isInteger(inputs.x) || inputs.x < 0 || inputs.x > 10) {
-      alert('올바른 x값을 입력하세요!');
+      alert.error('올바른 x값을 입력하세요!');
       xInput.current.value = '';
       yInput.current.value = '';
       setInputs({
@@ -90,7 +92,7 @@ const Main = () => {
       return;
     }
     if (!Number.isInteger(inputs.y) || inputs.y < 0 || inputs.y > 10) {
-      alert('올바른 y값을 입력하세요!');
+      alert.error('올바른 y값을 입력하세요!');
       xInput.current.value = '';
       yInput.current.value = '';
       setInputs({
@@ -147,7 +149,7 @@ const Main = () => {
             <InputText>데이터 입력</InputText>
             <GridBox>
               <VariableText style={{ gridColumn: 1, gridRow: 1 }}>
-                x:
+                x :
               </VariableText>
               <InputBox
                 name="x"
@@ -159,7 +161,7 @@ const Main = () => {
               <VariableText
                 style={{ gridColumn: 1, gridRow: 2, marginTop: '10px' }}
               >
-                y:
+                y :
               </VariableText>
               <InputBox
                 name="y"

@@ -1,0 +1,7 @@
+#__react-alert__ div div div {
+  width: 350px !important;
+  height: 150px;
+  align-items: center;
+  border-radius: 10px !important;
+  opacity: 0.8;
+}

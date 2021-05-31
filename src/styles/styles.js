@@ -14,11 +14,13 @@ const buttonStyle = css`
   border-radius: 10px;
 
   /* font styling */
-  color: white;
+  color: #ffffff;
   font-family: NanumSquareRound;
-  font-weight: 900;
+  font-weight: bold;
   cursor: pointer;
   margin-top: 20px;
+  text-transform: capitalize;
+  letter-spacing: -1px;
 
   /* 텍스트 위치 */
   align-items: center;
@@ -86,8 +88,8 @@ const ScatterChartWrapper = styled.div`
 `;
 
 const TitleWrapper = styled.h1`
-  font-family: NanumSquareRound;
-  font-weight: 900;
+  font-family: NotoSansCJKkR;
+  font-weight: 500;
   font-size: 40px;
   color: white;
   margin-top: 50px;
@@ -127,6 +129,7 @@ const SampleDataButton = styled.button`
     #11aadf 81.77%,
     #0b98c5 100%
   );
+
   &:hover {
     background: #339af0;
   }
@@ -214,7 +217,7 @@ const OnTrainingText = styled.h1`
 const InputText = styled.h1`
   font-family: NanumSquareRound;
   color: white;
-  font-weight: 800;
+  font-weight: 700;
   font-size: 18px;
   margin-top: 25px;
   margin-bottom: 12px;
@@ -323,7 +326,7 @@ const AxisNumberText = styled.h1`
 
 const GraphTitle = styled.h1`
   margin: auto 0;
-  font-family: NanumSquareRound;
+  font-family: NotoSansCJKkr;
   font-weight: 600;
   font-style: normal;
   font-size: 25px;
