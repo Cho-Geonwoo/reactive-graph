@@ -24,7 +24,7 @@ const useLinearRegression = (dots, model, sampleAdd) => {
       const ys = tf.tensor(trainY, [trainY.length]);
       const curHistory = [];
       const fitParam = {
-        epochs: sampleAdd ? 50 : 100,
+        epochs: sampleAdd ? 1800 : 100,
         shuffle: true,
         callbacks: {
           onEpochEnd: (epoch, log) => {
