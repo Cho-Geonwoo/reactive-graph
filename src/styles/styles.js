@@ -89,7 +89,7 @@ const ScatterChartWrapper = styled.div`
 `;
 
 const TitleWrapper = styled.h1`
-  font-family: NotoSansCJKkr;
+  font-family: NotoSansCJKkr !important;
   font-weight: 600;
   font-style: normal;
   font-size: 35px;
@@ -348,7 +348,7 @@ const AxisNumberText = styled.h1`
 
 const GraphTitle = styled.h1`
   margin: 200px 0 5% 0;
-  font-family: NotoSansCJKkr;
+  font-family: NotoSansCJKkr !important;
   font-weight: 600;
   font-style: normal;
   font-size: 25px;
@@ -376,6 +376,7 @@ const VerticalRechartText = styled.h1`
 `;
 
 const HorizontalRechartText = styled.h1`
+  font-family: Helvetica Neue;
   margin-left: 10%;
   width: 100%;
   font-size: 16px;
