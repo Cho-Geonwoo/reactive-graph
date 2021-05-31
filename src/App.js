@@ -1,8 +1,18 @@
 import React from 'react';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
+import { positions, transitions, Provider } from 'react-alert';
+import AlertTemplate from 'react-alert-template-basic';
 import theme from './theme';
 import { Main, TrainingModal } from './components';
+import './App.css';
+
+const options = {
+  timeout: 5000,
+  offset: '10px',
+  position: positions.TOP_CENTER,
+  transition: transitions.FADE,
+};
 
 // 전체 배경에 대한 default 색깔을 지정해주는 부분입니다.
 const Globalstyle = createGlobalStyle`
@@ -16,7 +26,9 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Globalstyle />
-      <Main />
+      <Provider template={AlertTemplate} {...options}>
+        <Main />
+      </Provider>
       <TrainingModal />
     </ThemeProvider>
   );
