@@ -30,15 +30,16 @@ const buttonStyle = css`
 
 const ContentWrapper = styled.div`
   margin: 0 auto;
+  width: 70%;
   display: flex;
   flex-direction: row;
+  justify-content: center;
   overflow: scroll;
   z-index: 0;
 `;
 
 const ContentOneWrapper = styled.div`
   position: relative;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -92,6 +93,9 @@ const ScatterChartWrapper = styled.div`
 
 const TitleWrapper = styled.h1`
   font-family: NotoSansCJKkr !important;
+  width: calc(100%);
+  text-align: center;
+  margin: 50 auto 50;
   font-weight: 600;
   font-style: normal;
   font-size: 35px;
@@ -276,7 +280,7 @@ const GridBox = styled.div`
 
 const GridWrapper = styled.div`
   position: absolute;
-  top: 152px;
+  top: 154px;
   left: -2px;
   width: ${canvasSize.width}px;
   height: ${canvasSize.height}px;

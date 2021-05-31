@@ -36,9 +36,11 @@ const Canvas = ({
   const [dots, setDots] = useState([]);
   const [sampleAdd, setSampleAdd] = useState(false);
   const [result, history] = useLinearRegression(dots, model, sampleAdd);
+  console.log(history);
   const [prevLine, setPrevLine] = useState([300, 300]);
   const [line, setLine] = useState([300, 300]);
   const [lineMoving, setLineMoving] = useState(false);
+  const [trainCount, setTrainCount] = useState(0);
   const reInitializeModel = useCallback(() => {
     model = tf.sequential();
     model.add(tf.layers.dense({ units: 1, inputShape: [1] }));
