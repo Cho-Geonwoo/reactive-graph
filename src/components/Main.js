@@ -1,18 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAlert } from 'react-alert';
-// import {
-//   ScatterChart,
-//   Scatter,
-//   XAxis,
-//   YAxis,
-//   CartesianGrid,
-//   Tooltip,
-//   ResponsiveContainer,
-// } from 'recharts';
 import Canvas from './Canvas';
 import CanvasGrid from './CanvasGrid';
+import LossGraph from './LossGraph';
 import {
-  // ScatterChartWrapper,
   ContentWrapper,
   ContentOneWrapper,
   ContentTwoWrapper,
@@ -30,8 +21,7 @@ import {
   InputBox,
   InputButton,
   GraphTitle,
-  EasyDeepImg,
-  LossGraphBox,
+  AlgorimaImg,
 } from '../styles/styles';
 
 const Main = () => {
@@ -181,9 +171,9 @@ const Main = () => {
       </ContentWrapper>
       <GraphWrapper>
         <GraphTitle>학습 정보</GraphTitle>
-        <LossGraphBox />
-        <a href="https://beta.easydeep.ai/" target="_blank" rel="noreferrer">
-          <EasyDeepImg src={`${process.env.PUBLIC_URL}/images/easydeep.png`} />
+        <LossGraph />
+        <a href="https://algorima.io/" target="_blank" rel="noreferrer">
+          <AlgorimaImg src={`${process.env.PUBLIC_URL}/images/algorima.png`} />
         </a>
       </GraphWrapper>
     </TotalWrapper>

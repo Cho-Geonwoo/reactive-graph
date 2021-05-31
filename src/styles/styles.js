@@ -289,8 +289,9 @@ const RobotImg = styled.img`
   margin-bottom: 15px;
 `;
 
-const EasyDeepImg = styled.img`
+const AlgorimaImg = styled.img`
   width: 400px;
+  margin-top: 30%;
   margin-bottom: 70px;
 `;
 
@@ -325,7 +326,7 @@ const AxisNumberText = styled.h1`
 `;
 
 const GraphTitle = styled.h1`
-  margin: auto 0;
+  margin: 30% 0 5% 0;
   font-family: NotoSansCJKkr;
   font-weight: 600;
   font-style: normal;
@@ -335,14 +336,6 @@ const GraphTitle = styled.h1`
   letter-spacing: -2px;
   text-transform: capitalize;
   color: #222222;
-`;
-
-const LossGraphBox = styled.div`
-  display: box;
-  width: 420px;
-  height: 390px;
-  border: 1px solid black;
-  margin-bottom: 150px;
 `;
 
 export {
@@ -371,10 +364,9 @@ export {
   HorizontalLine,
   GridWrapper,
   RobotImg,
-  EasyDeepImg,
+  AlgorimaImg,
   HorizontalAxis,
   VerticalAxis,
   AxisNumberText,
   GraphTitle,
-  LossGraphBox,
 };
