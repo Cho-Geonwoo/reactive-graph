@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { canvasSize } from '../constants/contants';
 
 const CanvasWrapper = styled.canvas`
@@ -212,12 +212,32 @@ const MainWrapper = styled.div`
   background-color: rgba(100, 100, 100, 0.5);
 `;
 
+const MainWrapperTwo = styled.div`
+  display: flex;
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(100, 100, 100, 0);
+`;
+
+const FadeOut = keyframes`
+  0% {
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+`;
+
 const ModalWrapper = styled.section`
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   margin: auto auto;
   width: 620px;
   height: 400px;
@@ -225,6 +245,30 @@ const ModalWrapper = styled.section`
   border-radius: 20px;
   box-shadow: 20px 20px 30px rgba(15, 32, 77, 0.5);
   z-index: 4;
+  animation: ${(props) =>
+    props.minimized &&
+    css`
+      ${FadeOut} 1s
+    `};
+`;
+
+const FadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+`;
+
+const DefaultWrapper = styled.div`
+  position: relative;
+  width: 70%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  animation: ${FadeIn} 1s;
 `;
 
 const OnTrainingText = styled.h1`
@@ -391,6 +435,18 @@ const HorizontalRechartText = styled.h1`
   color: black;
 `;
 
+const CompressImg = styled.img`
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: 20px;
+  margin-bottom: 40px;
+  width: 15px;
+  &:hover {
+    width: 20px;
+    margin-bottom: 35px;
+  }
+`;
+
 export {
   TotalWrapper,
   CanvasWrapper,
@@ -408,6 +464,7 @@ export {
   ModalWrapper,
   OnTrainingText,
   MainWrapper,
+  MainWrapperTwo,
   GraphWrapper,
   InputText,
   InputBox,
@@ -418,12 +475,14 @@ export {
   GridWrapper,
   RobotImg,
   AlgorimaImg,
+  CompressImg,
   HorizontalAxis,
   VerticalAxis,
   AxisNumberText,
   GraphTitle,
   AlgorimaLogoWrapper,
   ChartWrapper,
+  DefaultWrapper,
   VerticalRechartText,
   HorizontalRechartText,
 };

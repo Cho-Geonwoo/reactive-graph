@@ -58,7 +58,7 @@ const LossGraph = ({ lossHistory }) => {
               stroke="#8884d8"
               animationDuration={300}
             />
-            <Brush />
+            <Brush dataKey="name" height={30} stroke="#8884d8" />
           </LineChart>
         </ResponsiveContainer>
       </ChartWrapper>
