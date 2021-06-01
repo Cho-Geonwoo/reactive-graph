@@ -26,6 +26,7 @@ const TrainingModal = () => {
   useEffect(() => {
     if (!onTrain) {
       setMinimized(false);
+      setHideModal(false);
     }
   }, [onTrain]);
 
