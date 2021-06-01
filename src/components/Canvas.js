@@ -36,7 +36,6 @@ const Canvas = ({
   const [dots, setDots] = useState([]);
   const [sampleAdd, setSampleAdd] = useState(false);
   const [result, history] = useLinearRegression(dots, model, sampleAdd);
-  console.log(history);
   const [prevLine, setPrevLine] = useState([300, 300]);
   const [line, setLine] = useState([300, 300]);
   const [lineMoving, setLineMoving] = useState(false);
