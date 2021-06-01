@@ -92,11 +92,11 @@ const ScatterChartWrapper = styled.div`
 `;
 
 const TitleWrapper = styled.h1`
-  font-family: NotoSansCJKkr !important;
+  font-family: SpoqaHanSansNeo !important;
   width: calc(100%);
   text-align: center;
   margin: 50 auto 50;
-  font-weight: 600;
+  font-weight: 500;
   font-style: normal;
   font-size: 35px;
   line-height: 56px;
@@ -354,8 +354,8 @@ const AxisNumberText = styled.h1`
 
 const GraphTitle = styled.h1`
   margin: 200px 0 5% 0;
-  font-family: NotoSansCJKkr !important;
-  font-weight: 600;
+  font-family: SpoqaHanSansNeo !important;
+  font-weight: 500;
   font-style: normal;
   font-size: 25px;
   line-height: 56px;
