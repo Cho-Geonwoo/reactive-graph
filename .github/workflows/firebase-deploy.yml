@@ -13,9 +13,9 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@master
       - name: Install Dependencies
-        run: npm install
+        run: yarn install
       - name: Build
-        run: CI= npm-run-all build workbox
+        run: CI= yarn prod
       - name: Firebase Install
         run: sudo npm install -g firebase-tools
       - name: Firebase Deploy
