@@ -8,7 +8,6 @@ import './fonts/NanumSquare/nanumsquare.css';
 import { Provider } from 'react-redux';
 import { store } from './redux/helper';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -18,5 +17,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root'),
 );
-
-serviceWorker.register();

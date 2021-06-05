@@ -23,7 +23,6 @@ import {
   AlgorimaImg,
   AlgorimaLogoWrapper,
 } from '../styles/styles';
-import useViewFort from '../hooks/useViewFort';
 
 const Main = ({ width, height }) => {
   const isMobile = useMemo(() => width <= 1200, [width]);

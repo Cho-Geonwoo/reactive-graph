@@ -37,12 +37,16 @@ const Canvas = ({
   const canvasRef = useRef(null);
   const [dots, setDots] = useState([]);
   const [sampleAdd, setSampleAdd] = useState(false);
+  const [sampleModelOneExists, setSampleModelOneExists] = useState(false);
+  const [sampleModelTwoExists, setSampleModelTwoExists] = useState(false);
+  const [sampleNumber, setSampleNumber] = useState(1);
   const [result, history] = useLinearRegression(
     dots,
     model,
     sampleAdd,
     isMobile,
     width,
+    sampleNumber,
   );
   const [prevLine, setPrevLine] = isMobile
     ? useState([0.35 * width, 0.35 * width])
@@ -51,7 +55,6 @@ const Canvas = ({
     ? useState([0.35 * width, 0.35 * width])
     : useState([300, 300]);
   const [lineMoving, setLineMoving] = useState(false);
-  const [trainCount, setTrainCount] = useState(0);
   const reInitializeModel = useCallback(() => {
     model = tf.sequential();
     model.add(tf.layers.dense({ units: 1, inputShape: [1] }));
@@ -62,9 +65,51 @@ const Canvas = ({
     });
   }, []);
 
+  const checkIndexedDB = useCallback(
+    (name) => {
+      const req = indexedDB.open('tensorflowjs', 1);
+      let db;
+      req.onsuccess = () => {
+        db = req.result;
+        try {
+          const store = db
+            .transaction(['model_info_store'], 'readonly')
+            .objectStore('model_info_store');
+          let request = store.openCursor();
+          request.onsuccess = (e) => {
+            const cursor = e.target.result;
+            if (cursor) {
+              request = store.get(cursor.key);
+              request.onsuccess = (event) => {
+                const value = event.target.result;
+                if (name === value.modelPath) {
+                  if (name === 'sample1') {
+                    setSampleModelOneExists(true);
+                  }
+                  if (name === 'sample2') {
+                    setSampleModelTwoExists(true);
+                  }
+                }
+              };
+              cursor.continue();
+            }
+          };
+        } catch (error) {
+          setSampleModelOneExists(false);
+          setSampleModelOneExists(false);
+        }
+      };
+    },
+    [result],
+  );
+
+  useEffect(() => {
+    checkIndexedDB('sample1');
+    checkIndexedDB('sample2');
+  }, [result]);
+
   // canvas와 관련된 상태들을 초기화하는 함수다.
   const clearCanvas = useCallback(() => {
-    reInitializeModel();
     setLineMoving(false);
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
@@ -150,10 +195,23 @@ const Canvas = ({
   }, [addedDot]);
 
   // 샘플 데이터1 버튼을 클릭했을 때, dataSampleOne 배열에 있는 점들을 캔버스에 추가하는 액션이다.
-  useEffect(() => {
+  useEffect(async () => {
     if (showSampleDataOne) {
+      setShowSampleDataOne(false);
+      setSampleNumber(1);
       clearCanvas();
-      setSampleAdd(true);
+      if (sampleModelOneExists) {
+        model = await tf.loadLayersModel('indexeddb://sample1');
+        model.compile({
+          loss: 'meanSquaredError',
+          optimizer: 'SGD',
+          metrics: ['mse'],
+        });
+        setSampleAdd(false);
+      } else {
+        reInitializeModel();
+        setSampleAdd(true);
+      }
       const dotSample = [];
       dataSampleOne.map((dot) => {
         plotDot(dot);
@@ -162,15 +220,27 @@ const Canvas = ({
       });
       dispatch(answerActions.setTrainState(true));
       setDots(dotSample);
-      setShowSampleDataOne(false);
     }
   }, [showSampleDataOne]);
 
   // 샘플 데이터2 버튼을 클릭했을 때, dataSampleTwo 배열에 있는 점들을 캔버스에 추가하는 액션이다.
-  useEffect(() => {
+  useEffect(async () => {
     if (showSampleDataTwo) {
+      setShowSampleDataTwo(false);
+      setSampleNumber(2);
       clearCanvas();
-      setSampleAdd(true);
+      if (sampleModelTwoExists) {
+        model = await tf.loadLayersModel('indexeddb://sample2');
+        model.compile({
+          loss: 'meanSquaredError',
+          optimizer: 'SGD',
+          metrics: ['mse'],
+        });
+        setSampleAdd(false);
+      } else {
+        reInitializeModel();
+        setSampleAdd(true);
+      }
       const dotSample = [];
       dataSampleTwo.map((dot) => {
         plotDot(dot);
@@ -179,13 +249,13 @@ const Canvas = ({
       });
       dispatch(answerActions.setTrainState(true));
       setDots(dotSample);
-      setShowSampleDataTwo(false);
     }
   }, [showSampleDataTwo]);
 
   // 초기화 버튼을 클릭했을 때, 기존의 모든 점들을 지우고 선의 위치를 중앙으로 초기화하는 함수다.
   useEffect(() => {
     if (clear) {
+      reInitializeModel();
       clearCanvas();
       setClear(false);
       setLossHistory([]);

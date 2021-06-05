@@ -2,7 +2,14 @@ import * as tf from '@tensorflow/tfjs';
 import { useEffect, useState } from 'react';
 import { canvasSize } from '../constants/contants';
 
-const useLinearRegression = (dots, model, sampleAdd, isMobile, width) => {
+const useLinearRegression = (
+  dots,
+  model,
+  sampleAdd,
+  isMobile,
+  width,
+  sampleNumber,
+) => {
   const [result, setResult] = useState([]);
   const [history, setHistory] = useState([]);
 
@@ -33,7 +40,10 @@ const useLinearRegression = (dots, model, sampleAdd, isMobile, width) => {
         },
       };
       // Model training
-      model.fit(xs, ys, fitParam).then(() => {
+      model.fit(xs, ys, fitParam).then(async () => {
+        if (sampleAdd) {
+          await model.save(`indexeddb://sample${sampleNumber}`);
+        }
         if (!isMobile) {
           // Test data Inference
           setResult([

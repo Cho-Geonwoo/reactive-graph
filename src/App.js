@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 import { positions, transitions, Provider } from 'react-alert';
