@@ -36,6 +36,11 @@ const ContentWrapper = styled.div`
   justify-content: center;
   overflow: scroll;
   z-index: 0;
+  @media only screen and (max-width: 1200px) {
+    flex-direction: column;
+    width: 100%;
+    margin: 30px 0 0 0;
+  }
 `;
 
 const ContentOneWrapper = styled.div`
@@ -51,6 +56,9 @@ const ContentTwoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 22px;
+  @media only screen and (max-width: 1200px) {
+    display: none;
+  }
 `;
 
 const InputWrapper = styled.div`
@@ -71,6 +79,11 @@ const TotalWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   overflow: scroll;
+  @media only screen and (max-width: 1200px) {
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
 `;
 
 const GraphWrapper = styled.div`
@@ -84,6 +97,9 @@ const GraphWrapper = styled.div`
   overflow: scroll;
   text-overflow: ellipsis;
   white-space: nowrap;
+  @media only screen and (max-width: 1200px) {
+    display: none;
+  }
 `;
 
 const ScatterChartWrapper = styled.div`
@@ -95,7 +111,7 @@ const TitleWrapper = styled.h1`
   font-family: SpoqaHanSansNeo !important;
   width: calc(100%);
   text-align: center;
-  margin: 50 auto 50;
+  margin: 50px auto 50px;
   font-weight: 500;
   font-style: normal;
   font-size: 35px;
@@ -103,8 +119,11 @@ const TitleWrapper = styled.h1`
   letter-spacing: -2px;
   text-transform: capitalize;
   color: white;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  @media only screen and (max-width: 1200px) {
+    width: 100%;
+    text-align: center;
+    margin: 10px auto 10px;
+  }
 `;
 
 const Blank = styled.div`
@@ -118,6 +137,10 @@ const SampleDataWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   margin-top: 50px;
+  @media only screen and (max-width: 1200px) {
+    width: 100%;
+    justify-content: center;
+  }
 `;
 
 const SampleDataButton = styled.button`
@@ -269,6 +292,15 @@ const DefaultWrapper = styled.div`
   flex-direction: row;
   justify-content: flex-end;
   animation: ${FadeIn} 1s;
+  @media only screen and (max-width: 1200px) {
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-right: 20px;
+    bottom: 20px;
+  }
 `;
 
 const OnTrainingText = styled.h1`
@@ -332,6 +364,12 @@ const GridWrapper = styled.div`
   z-index: 0;
   background-color: white;
   border-radius: 10px;
+  @media only screen and (max-width: 1200px) {
+    top: 74px;
+    left: auto;
+    width: ${(props) => props.width * 0.7}px;
+    height: ${(props) => props.width * 0.7}px;
+  }
 `;
 
 const VerticalLine = styled.div`
@@ -341,6 +379,9 @@ const VerticalLine = styled.div`
   border: 0.7px solid #e9e9e9;
   z-index: 1;
   left: ${(props) => props.left}px;
+  @media only screen and (max-width: 1200px) {
+    display: none;
+  }
 `;
 
 const HorizontalLine = styled.div`
@@ -350,6 +391,9 @@ const HorizontalLine = styled.div`
   border: 0.7px solid #e9e9e9;
   z-index: 1;
   top: ${(props) => props.top}px;
+  @media only screen and (max-width: 1200px) {
+    display: none;
+  }
 `;
 
 const RobotImg = styled.img`
@@ -374,6 +418,9 @@ const HorizontalAxis = styled.div`
   flex-direction: row;
   width: 620px;
   justify-content: space-between;
+  @media only screen and (max-width: 1200px) {
+    display: none;
+  }
 `;
 
 const VerticalAxis = styled.div`
@@ -385,6 +432,9 @@ const VerticalAxis = styled.div`
   height: 620px;
   justify-content: space-between;
   align-items: flex-end;
+  @media only screen and (max-width: 1200px) {
+    display: none;
+  }
 `;
 
 const AxisNumberText = styled.h1`

@@ -11,9 +11,9 @@ import {
 const gridLinePosition = [60, 120, 180, 240, 300, 360, 420, 480, 540];
 const gridNumber = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-const CanvasGrid = () => {
+const CanvasGrid = ({ width }) => {
   return (
-    <GridWrapper>
+    <GridWrapper width={width}>
       {gridLinePosition.map((currentValue) => {
         return <VerticalLine left={currentValue} key={currentValue} />;
       })}

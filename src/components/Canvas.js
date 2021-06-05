@@ -21,6 +21,8 @@ model.compile({
 });
 
 const Canvas = ({
+  width,
+  isMobile = false,
   showSampleDataOne = false,
   showSampleDataTwo = false,
   clear = false,
@@ -35,9 +37,19 @@ const Canvas = ({
   const canvasRef = useRef(null);
   const [dots, setDots] = useState([]);
   const [sampleAdd, setSampleAdd] = useState(false);
-  const [result, history] = useLinearRegression(dots, model, sampleAdd);
-  const [prevLine, setPrevLine] = useState([300, 300]);
-  const [line, setLine] = useState([300, 300]);
+  const [result, history] = useLinearRegression(
+    dots,
+    model,
+    sampleAdd,
+    isMobile,
+    width,
+  );
+  const [prevLine, setPrevLine] = isMobile
+    ? useState([0.35 * width, 0.35 * width])
+    : useState([300, 300]);
+  const [line, setLine] = isMobile
+    ? useState([0.35 * width, 0.35 * width])
+    : useState([300, 300]);
   const [lineMoving, setLineMoving] = useState(false);
   const [trainCount, setTrainCount] = useState(0);
   const reInitializeModel = useCallback(() => {
@@ -59,10 +71,15 @@ const Canvas = ({
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.beginPath();
     setDots([]);
-    setLine([300, 300]);
-    setPrevLine([300, 300]);
+    if (!isMobile) {
+      setLine([300, 300]);
+      setPrevLine([300, 300]);
+    } else {
+      setLine([0.35 * width, 0.35 * width]);
+      setPrevLine([0.35 * width, 0.35 * width]);
+    }
     setSampleAdd(false);
-  }, []);
+  }, [isMobile]);
 
   // click event가 발생했을 때 해당 위치에 점을 그리는 함수다.
   const addDot = useCallback((event) => {
@@ -97,14 +114,25 @@ const Canvas = ({
   const plotDot = useCallback((dotCoordinate) => {
     const context = canvasRef.current.getContext('2d');
     context.beginPath();
-    context.arc(
-      dotCoordinate[0] * canvasSize.width,
-      canvasSize.height - dotCoordinate[1] * canvasSize.height,
-      5,
-      0,
-      2 * Math.PI,
-      false,
-    );
+    if (!isMobile) {
+      context.arc(
+        dotCoordinate[0] * canvasSize.width,
+        canvasSize.height - dotCoordinate[1] * canvasSize.height,
+        5,
+        0,
+        2 * Math.PI,
+        false,
+      );
+    } else {
+      context.arc(
+        dotCoordinate[0] * 0.7 * width,
+        0.7 * width - dotCoordinate[1] * 0.7 * width,
+        5,
+        0,
+        2 * Math.PI,
+        false,
+      );
+    }
     context.fillStyle = '#15baf2';
     context.strokeStyle = '#15baf2';
     context.fill();
@@ -179,14 +207,22 @@ const Canvas = ({
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.save();
     context.beginPath();
-    context.moveTo(0, canvasSize.height - line[0]);
+    if (!isMobile) {
+      context.moveTo(0, canvasSize.height - line[0]);
+    } else {
+      context.moveTo(0, 0.7 * width - line[0]);
+    }
     context.strokeStyle = '#15baf2';
     context.lineWidth = 2;
     context.shadowColor = 'rgba(0,0,0,0.25)';
     context.shadowBlur = 4;
     context.shadowOffsetX = 3;
     context.shadowOffsetY = 1;
-    context.lineTo(canvasSize.width, canvasSize.height - line[1]);
+    if (!isMobile) {
+      context.lineTo(canvasSize.width, canvasSize.height - line[1]);
+    } else {
+      context.lineTo(0.7 * width, 0.7 * width - line[1]);
+    }
     context.stroke();
     context.restore();
     dots.map((dot) => {
@@ -240,8 +276,8 @@ const Canvas = ({
   return (
     <CanvasWrapper
       ref={canvasRef}
-      width={canvasSize.width}
-      height={canvasSize.height}
+      width={isMobile ? 0.7 * width : canvasSize.width}
+      height={isMobile ? 0.7 * width : canvasSize.height}
     />
   );
 };

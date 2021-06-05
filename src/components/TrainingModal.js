@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Default } from 'react-awesome-spinners';
 import {
@@ -11,7 +11,8 @@ import {
   CompressImg,
 } from '../styles/styles';
 
-const TrainingModal = () => {
+const TrainingModal = ({ width }) => {
+  const isMobile = useMemo(() => width <= 1200, [width]);
   const onTrain = useSelector((store) => store.answer.onTrain);
   const [minimized, setMinimized] = useState(false);
   const [hideModal, setHideModal] = useState(false);
@@ -54,9 +55,15 @@ const TrainingModal = () => {
     ) : (
       <MainWrapperTwo>
         <DefaultWrapper>
-          <div style={{ paddingTop: '30px', paddingRight: '30px' }}>
-            <Default />
-          </div>
+          {isMobile ? (
+            <div>
+              <Default />
+            </div>
+          ) : (
+            <div style={{ paddingTop: '30px', paddingRight: '30px' }}>
+              <Default />
+            </div>
+          )}
         </DefaultWrapper>
       </MainWrapperTwo>
     ))

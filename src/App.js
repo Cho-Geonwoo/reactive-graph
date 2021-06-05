@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 import { positions, transitions, Provider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
 import theme from './theme';
 import { Main, TrainingModal } from './components';
+import useViewFort from './hooks/useViewFort';
+
 import './App.css';
 
 const options = {
@@ -23,13 +25,14 @@ const Globalstyle = createGlobalStyle`
 `;
 
 function App() {
+  const { width, height } = useViewFort();
   return (
     <ThemeProvider theme={theme}>
       <Globalstyle />
       <Provider template={AlertTemplate} {...options}>
-        <Main />
+        <Main width={width} height={height} />
       </Provider>
-      <TrainingModal />
+      <TrainingModal width={width} />
     </ThemeProvider>
   );
 }

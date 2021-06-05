@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { useAlert } from 'react-alert';
 import Canvas from './Canvas';
 import CanvasGrid from './CanvasGrid';
@@ -8,7 +8,6 @@ import {
   ContentOneWrapper,
   ContentTwoWrapper,
   TitleWrapper,
-  Blank,
   SampleDataWrapper,
   SampleDataButton,
   InitializeButton,
@@ -24,8 +23,10 @@ import {
   AlgorimaImg,
   AlgorimaLogoWrapper,
 } from '../styles/styles';
+import useViewFort from '../hooks/useViewFort';
 
-const Main = () => {
+const Main = ({ width, height }) => {
+  const isMobile = useMemo(() => width <= 1200, [width]);
   const [showSampleDataOne, setShowSampleDataOne] = useState(false);
   const [showSampleDataTwo, setShowSampleDataTwo] = useState(false);
   const [clear, setClear] = useState(false);
@@ -108,6 +109,8 @@ const Main = () => {
         <ContentOneWrapper>
           <TitleWrapper>선형 회귀 실습</TitleWrapper>
           <Canvas
+            width={Math.min(width, height)}
+            isMobile={isMobile}
             showSampleDataOne={showSampleDataOne}
             showSampleDataTwo={showSampleDataTwo}
             clear={clear}
@@ -119,22 +122,21 @@ const Main = () => {
             setAddedDot={setAddedDot}
             setLossHistory={setLossHistory}
           />
-          <CanvasGrid />
+          <CanvasGrid width={Math.min(width, height)} isMobile={isMobile} />
           <SampleDataWrapper>
             <SampleDataButton
               onClick={() => setShowSampleDataOne(true)}
-              left={140}
+              left={isMobile ? 0 : 140}
             >
               샘플 데이터 1
             </SampleDataButton>
             <SampleDataButton
               onClick={() => setShowSampleDataTwo(true)}
-              left={20}
+              left={isMobile ? 20 : 20}
             >
               샘플 데이터 2
             </SampleDataButton>
           </SampleDataWrapper>
-          <Blank />
         </ContentOneWrapper>
         <ContentTwoWrapper>
           <InputWrapper>
