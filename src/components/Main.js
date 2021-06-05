@@ -136,6 +136,11 @@ const Main = ({ width, height }) => {
               샘플 데이터 2
             </SampleDataButton>
           </SampleDataWrapper>
+          {isMobile && (
+            <InitializeButton onClick={() => setClear(true)}>
+              초기화
+            </InitializeButton>
+          )}
         </ContentOneWrapper>
         <ContentTwoWrapper>
           <InputWrapper>

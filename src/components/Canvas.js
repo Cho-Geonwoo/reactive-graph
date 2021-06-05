@@ -56,7 +56,7 @@ const Canvas = ({
     : useState([300, 300]);
   const [lineMoving, setLineMoving] = useState(false);
 
-  //모델을 초기화하는 함수
+  // 모델을 초기화하는 함수
   const reInitializeModel = useCallback(() => {
     model = tf.sequential();
     model.add(tf.layers.dense({ units: 1, inputShape: [1] }));
@@ -67,7 +67,7 @@ const Canvas = ({
     });
   }, []);
 
-  //IndexedDB안에 이미 훈련된 모델이 있나 확인하는 부분
+  // IndexedDB안에 이미 훈련된 모델이 있나 확인하는 부분
   const checkIndexedDB = useCallback(
     (name) => {
       if (dots.length > 2) {
