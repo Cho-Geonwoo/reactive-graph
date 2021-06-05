@@ -5,7 +5,7 @@ import { canvasSize } from '../constants/contants';
 const useLinearRegression = (
   dots,
   model,
-  sampleAdd,
+  sampleAdd = false,
   isMobile,
   width,
   sampleNumber,
