@@ -55,6 +55,8 @@ const Canvas = ({
     ? useState([0.35 * width, 0.35 * width])
     : useState([300, 300]);
   const [lineMoving, setLineMoving] = useState(false);
+
+  //모델을 초기화하는 함수
   const reInitializeModel = useCallback(() => {
     model = tf.sequential();
     model.add(tf.layers.dense({ units: 1, inputShape: [1] }));
@@ -64,6 +66,8 @@ const Canvas = ({
       metrics: ['mse'],
     });
   }, []);
+
+  //IndexedDB안에 이미 훈련된 모델이 있나 확인하는 부분
   const checkIndexedDB = useCallback(
     (name) => {
       if (dots.length > 2) {
@@ -199,6 +203,7 @@ const Canvas = ({
   useEffect(async () => {
     if (showSampleDataOne) {
       setShowSampleDataOne(false);
+      setLossHistory([]);
       setSampleNumber(1);
       clearCanvas();
       if (sampleModelOneExists) {
@@ -228,6 +233,7 @@ const Canvas = ({
   useEffect(async () => {
     if (showSampleDataTwo) {
       setShowSampleDataTwo(false);
+      setLossHistory([]);
       setSampleNumber(2);
       clearCanvas();
       if (sampleModelTwoExists) {
