@@ -68,10 +68,16 @@ const Canvas = ({
   }, []);
 
   // IndexedDB안에 이미 훈련된 모델이 있나 확인하는 부분
-  const checkIndexedDB = useCallback((name) => {
-    if (dots.length > 2) {
-      const req = indexedDB.open('tensorflowjs', 1);
+  const checkIndexedDB = useCallback(async (name) => {
+    const isExisting = (await window.indexedDB.databases())
+      .map((db) => db.name)
+      .includes('tensorflowjs');
+    if (isExisting) {
+      const req = indexedDB.open('tensorflowjs');
       let db;
+      req.onupgradeneeded = (e) => {
+        e.target.transaction.abort();
+      };
       req.onsuccess = () => {
         db = req.result;
         try {
@@ -108,7 +114,7 @@ const Canvas = ({
   useEffect(() => {
     checkIndexedDB('sample1');
     checkIndexedDB('sample2');
-  }, [result]);
+  }, []);
 
   // canvas와 관련된 상태들을 초기화하는 함수다.
   const clearCanvas = useCallback(() => {
