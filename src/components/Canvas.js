@@ -68,45 +68,42 @@ const Canvas = ({
   }, []);
 
   // IndexedDB안에 이미 훈련된 모델이 있나 확인하는 부분
-  const checkIndexedDB = useCallback(
-    (name) => {
-      if (dots.length > 2) {
-        const req = indexedDB.open('tensorflowjs', 1);
-        let db;
-        req.onsuccess = () => {
-          db = req.result;
-          try {
-            const store = db
-              .transaction(['model_info_store'], 'readonly')
-              .objectStore('model_info_store');
-            let request = store.openCursor();
-            request.onsuccess = (e) => {
-              const cursor = e.target.result;
-              if (cursor) {
-                request = store.get(cursor.key);
-                request.onsuccess = (event) => {
-                  const value = event.target.result;
-                  if (name === value.modelPath) {
-                    if (name === 'sample1') {
-                      setSampleModelOneExists(true);
-                    }
-                    if (name === 'sample2') {
-                      setSampleModelTwoExists(true);
-                    }
+  const checkIndexedDB = useCallback((name) => {
+    if (dots.length > 2) {
+      const req = indexedDB.open('tensorflowjs', 1);
+      let db;
+      req.onsuccess = () => {
+        db = req.result;
+        try {
+          const store = db
+            .transaction(['model_info_store'], 'readonly')
+            .objectStore('model_info_store');
+          let request = store.openCursor();
+          request.onsuccess = (e) => {
+            const cursor = e.target.result;
+            if (cursor) {
+              request = store.get(cursor.key);
+              request.onsuccess = (event) => {
+                const value = event.target.result;
+                if (name === value.modelPath) {
+                  if (name === 'sample1') {
+                    setSampleModelOneExists(true);
                   }
-                };
-                cursor.continue();
-              }
-            };
-          } catch (error) {
-            setSampleModelOneExists(false);
-            setSampleModelOneExists(false);
-          }
-        };
-      }
-    },
-    [result],
-  );
+                  if (name === 'sample2') {
+                    setSampleModelTwoExists(true);
+                  }
+                }
+              };
+              cursor.continue();
+            }
+          };
+        } catch (error) {
+          setSampleModelOneExists(false);
+          setSampleModelOneExists(false);
+        }
+      };
+    }
+  }, []);
 
   useEffect(() => {
     checkIndexedDB('sample1');
