@@ -20,8 +20,6 @@ import {
   InputBox,
   InputButton,
   GraphTitle,
-  AlgorimaImg,
-  AlgorimaLogoWrapper,
 } from '../styles/styles';
 
 const Main = ({ width, height }) => {
@@ -179,13 +177,6 @@ const Main = ({ width, height }) => {
       <GraphWrapper>
         <GraphTitle>학습 정보</GraphTitle>
         <LossGraph lossHistory={lossHistory} />
-        <AlgorimaLogoWrapper
-          href="https://algorima.io/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <AlgorimaImg src={`${process.env.PUBLIC_URL}/images/algorima.png`} />
-        </AlgorimaLogoWrapper>
       </GraphWrapper>
     </TotalWrapper>
   );

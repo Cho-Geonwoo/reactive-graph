@@ -401,15 +401,6 @@ const RobotImg = styled.img`
   margin-bottom: 15px;
 `;
 
-const AlgorimaLogoWrapper = styled.a`
-  margin-top: auto;
-  margin-bottom: 70px;
-`;
-
-const AlgorimaImg = styled.img`
-  width: 400px;
-`;
-
 const HorizontalAxis = styled.div`
   position: absolute;
   display: flex;
@@ -524,13 +515,11 @@ export {
   HorizontalLine,
   GridWrapper,
   RobotImg,
-  AlgorimaImg,
   CompressImg,
   HorizontalAxis,
   VerticalAxis,
   AxisNumberText,
   GraphTitle,
-  AlgorimaLogoWrapper,
   ChartWrapper,
   DefaultWrapper,
   VerticalRechartText,
