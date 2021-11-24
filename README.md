@@ -1,6 +1,6 @@
 # This repository is for reactive graph webpage
 
-Contents are available at [Direct](https://reactive-graph.web.app/)
+Contents are available at [Link](https://reactive-graph.web.app/)
 
 ## Tech Stack
 
